@@ -11,7 +11,7 @@ import PropTypes from "prop-types";
 import React from "react";
 
 import { FlatList, View, StyleSheet, Keyboard } from "react-native";
-
+import { uniq } from 'lodash';
 import LoadEarlier from "./LoadEarlier";
 import Message from "./Message";
 
@@ -160,7 +160,7 @@ export default class MessageContainer extends React.PureComponent {
           enableEmptySections
           automaticallyAdjustContentInsets={false}
           inverted={this.props.inverted}
-          data={this.props.messages}
+          data={uniq(this.props.messages)}
           style={styles.listStyle}
           contentContainerStyle={styles.contentContainerStyle}
           renderItem={this.renderRow}
