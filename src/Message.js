@@ -2,12 +2,13 @@
 
 import PropTypes from 'prop-types';
 import React from 'react';
-import { View, ViewPropTypes, StyleSheet } from 'react-native';
+import { View, ViewPropTypes, StyleSheet, Text } from 'react-native';
 
 import Avatar from './Avatar';
 import Bubble from './Bubble';
 import SystemMessage from './SystemMessage';
 import Day from './Day';
+import { get } from 'lodash';
 
 import { isSameUser, isSameDay } from './utils';
 
@@ -45,6 +46,7 @@ export default class Message extends React.PureComponent {
 
   renderDay() {
     if (this.props.currentMessage.createdAt) {
+
       const dayProps = this.getInnerComponentProps();
       if (this.props.renderDay) {
         return this.props.renderDay(dayProps);
@@ -84,25 +86,36 @@ export default class Message extends React.PureComponent {
 
   render() {
     const sameUser = isSameUser(this.props.currentMessage, this.props.nextMessage);
+    console.log(this.props.currentMessage)
+    const userName = get(this.props, 'currentMessage.user.name')
     return (
       <View>
         {this.renderDay()}
         {this.props.currentMessage.system ? (
           this.renderSystemMessage()
         ) : (
-          <View
-            style={[
-              styles[this.props.position].container,
-              { marginBottom: sameUser ? 2 : 10 },
-              !this.props.inverted && { marginBottom: 2 },
-              this.props.containerStyle[this.props.position],
-            ]}
-          >
-            {this.props.position === 'left' ? this.renderAvatar() : null}
-            {this.renderBubble()}
-            {this.props.position === 'right' ? this.renderAvatar() : null}
-          </View>
-        )}
+            <View
+              style={[
+                styles[this.props.position].container,
+                { marginBottom: sameUser ? 2 : 10 },
+                !this.props.inverted && { marginBottom: 2 },
+                this.props.containerStyle[this.props.position],
+              ]}
+            >
+              {this.props.position === 'left' ? this.renderAvatar() : null}
+              <View>
+                <Text style={{
+                  marginLeft: 6,
+                  marginBottom: 3,
+                  fontSize: 11,
+                  display: this.props.position === 'left' ? 'flex' : 'none'
+                }}>{userName}</Text>
+                {this.renderBubble()}
+              </View>
+
+              {this.props.position === 'right' ? this.renderAvatar() : null}
+            </View>
+          )}
       </View>
     );
   }
