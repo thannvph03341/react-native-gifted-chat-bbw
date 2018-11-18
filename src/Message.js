@@ -86,7 +86,7 @@ export default class Message extends React.PureComponent {
 
   render() {
     const sameUser = isSameUser(this.props.currentMessage, this.props.nextMessage);
-    const userName = get(this.props, 'currentMessage.user.name')
+    const userName = get(this.props, 'currentMessage.user.name', '')
     return (
       <View>
         {this.renderDay()}
