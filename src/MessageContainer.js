@@ -152,6 +152,7 @@ export default class MessageContainer extends React.PureComponent {
     if (this.props.messages.length === 0) {
       return <View style={styles.container} />;
     }
+    const { onTouchStart = undefined } = this.props;
     return (
       <View style={styles.container}>
         <FlatList
@@ -162,6 +163,7 @@ export default class MessageContainer extends React.PureComponent {
           inverted={this.props.inverted}
           data={uniq(this.props.messages)}
           style={styles.listStyle}
+          onTouchStart={onTouchStart}
           contentContainerStyle={styles.contentContainerStyle}
           renderItem={this.renderRow}
           {...this.props.invertibleScrollViewProps}
@@ -194,7 +196,7 @@ MessageContainer.defaultProps = {
   user: {},
   renderFooter: null,
   renderMessage: null,
-  onLoadEarlier: () => {},
+  onLoadEarlier: () => { },
   inverted: true,
   loadEarlier: false,
   listViewProps: {},
