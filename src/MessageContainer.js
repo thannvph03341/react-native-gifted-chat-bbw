@@ -181,7 +181,8 @@ const styles = StyleSheet.create({
     flex: 1
   },
   contentContainerStyle: {
-    justifyContent: "flex-end"
+    justifyContent: "flex-end",
+    flexGrow: 1
   },
   headerWrapper: {
     flex: 1
