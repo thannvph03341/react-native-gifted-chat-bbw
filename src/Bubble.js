@@ -148,26 +148,26 @@ export default class Bubble extends React.PureComponent {
       >
         <View style={[styles[this.props.position].containerTriangle]}>
           {this.props.position === "left" &&
-          !this.props.currentMessage.image &&
-          !this.props.currentMessage.video ? (
-            <View style={[styles[this.props.position].triangle]} />
-          ) : null}
+            !this.props.currentMessage.image &&
+            !this.props.currentMessage.video ? (
+              <View style={[styles[this.props.position].triangle]} />
+            ) : null}
 
           {this.props.position === "right" &&
-          this.props.currentMessage.audio ? (
-            <Text
-              style={{
-                color: Color.timeTextColor,
-                fontSize: 12,
-                fontWeight: "bold"
-              }}
-            >
-              {parseFloat(this.props.currentMessage.audio.time).toFixed(1)}"
+            this.props.currentMessage.audio ? (
+              <Text
+                style={{
+                  color: Color.timeTextColor,
+                  fontSize: 12,
+                  fontWeight: "bold"
+                }}
+              >
+                {parseFloat(this.props.currentMessage.audio.time).toFixed(1)}"
             </Text>
-          ) : null}
+            ) : null}
           <View
             style={[
-              styles[this.props.position].wrapper,
+              styles[this.props.position].wrapper, this.props.currentMessage.file ? { backgroundColor: "white", } : {},
               !this.props.currentMessage.audio
                 ? this.props.wrapperStyle[this.props.position]
                 : styles[this.props.position].audio,
@@ -188,20 +188,20 @@ export default class Bubble extends React.PureComponent {
             </TouchableWithoutFeedback>
           </View>
           {this.props.position === "right" &&
-          !this.props.currentMessage.images &&
-          !this.props.currentMessage.image &&
-          !this.props.currentMessage.video ? (
-            <View
-              style={[
-                styles[this.props.position].triangle,
-                {
-                  borderLeftColor: this.props.currentMessage.contact
-                    ? "white"
-                    : "#1AAC19"
-                }
-              ]}
-            />
-          ) : null}
+            !this.props.currentMessage.images &&
+            !this.props.currentMessage.image &&
+            !this.props.currentMessage.video ? (
+              <View
+                style={[
+                  styles[this.props.position].triangle,
+                  {
+                    borderLeftColor: this.props.currentMessage.contact || this.props.currentMessage.file
+                      ? "white"
+                      : "#1AAC19"
+                  }
+                ]}
+              />
+            ) : null}
 
           {this.props.position === "left" && this.props.currentMessage.audio ? (
             <Text
