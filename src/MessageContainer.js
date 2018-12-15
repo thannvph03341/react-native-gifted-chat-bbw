@@ -109,6 +109,25 @@ export default class MessageContainer extends React.PureComponent {
     }
   }
 
+  scrollToEnd() {
+    if (this.flatListRef) {
+      let wait = new Promise((resolve) => setTimeout(resolve, 200));  // Smaller number should work
+      wait.then(() => {
+        this.flatListRef.scrollToEnd({ animated: true });
+      });
+    }
+  }
+
+  scrollToIndex(index) {
+    // console.log("scrollToIndex = ", index)
+    if (this.flatListRef) {
+      let wait = new Promise((resolve) => setTimeout(resolve, 200));  // Smaller number should work
+      wait.then(() => {
+        this.flatListRef.scrollToIndex({ index: index, animated: true });
+      });
+    }
+  }
+
   renderRow({ item, index }) {
     if (!item._id && item._id !== 0) {
       console.warn(
