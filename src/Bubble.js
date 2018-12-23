@@ -143,7 +143,7 @@ export default class Bubble extends React.PureComponent {
       <View
         style={[
           styles[this.props.position].container,
-          this.props.containerStyle[this.props.position]
+          this.props.containerStyle[this.props.position],
         ]}
       >
         <View style={[styles[this.props.position].containerTriangle]}>
@@ -165,6 +165,9 @@ export default class Bubble extends React.PureComponent {
                 {parseFloat(this.props.currentMessage.audio.time).toFixed(1)}"
             </Text>
             ) : null}
+
+          {this.props.position === "right" &&
+            this.props.currentMessage.isNotSent && this.props.renderExtraView()}
           <View
             style={[
               styles[this.props.position].wrapper, this.props.currentMessage.file ? { backgroundColor: "white", } : {},
@@ -172,7 +175,9 @@ export default class Bubble extends React.PureComponent {
                 ? this.props.wrapperStyle[this.props.position]
                 : styles[this.props.position].audio,
               this.handleBubbleToNext(),
-              this.handleBubbleToPrevious()
+              this.handleBubbleToPrevious(),
+              { marginLeft: 0 },
+
             ]}
           >
             <TouchableWithoutFeedback

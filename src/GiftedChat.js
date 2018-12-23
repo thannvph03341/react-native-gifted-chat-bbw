@@ -58,6 +58,7 @@ class GiftedChat extends React.Component {
       composerHeight: MIN_COMPOSER_HEIGHT,
       messagesContainerHeight: null,
       typingDisabled: false,
+      isKeyboardChanged: false
     };
 
     this.onKeyboardWillShow = this.onKeyboardWillShow.bind(this);
@@ -261,6 +262,7 @@ class GiftedChat extends React.Component {
         messagesContainerHeight: newMessagesContainerHeight,
       });
     }
+    // console.log("newMessagesContainerHeight = ", newMessagesContainerHeight)
   }
 
   onKeyboardWillHide() {
@@ -278,20 +280,34 @@ class GiftedChat extends React.Component {
         messagesContainerHeight: newMessagesContainerHeight,
       });
     }
+    console.log("newMessagesContainerHeight = ", newMessagesContainerHeight)
+
   }
 
-  onKeyboardDidShow(e) {
-    if (Platform.OS === 'android') {
-      this.onKeyboardWillShow(e);
+  async onKeyboardDidShow(e) {
+    // if (Platform.OS === 'android') {
+    // this.onKeyboardWillShow(e);
+    // }
+    if (this.state.isKeyboardChanged) {
+      return
     }
+    await this.setState({ isKeyboardChanged: true })
+    this.onKeyboardWillShow(e);
     this.setIsTypingDisabled(false);
+    await this.setState({ isKeyboardChanged: false })
   }
 
-  onKeyboardDidHide(e) {
-    if (Platform.OS === 'android') {
-      this.onKeyboardWillHide(e);
+  async onKeyboardDidHide(e) {
+    // if (Platform.OS === 'android') {
+    // this.onKeyboardWillHide(e);
+    // }
+    if (this.state.isKeyboardChanged) {
+      return
     }
+    await this.setState({ isKeyboardChanged: true })
+    this.onKeyboardWillHide(e);
     this.setIsTypingDisabled(false);
+    await this.setState({ isKeyboardChanged: false })
   }
 
   scrollToBottom(animated = true) {
