@@ -580,7 +580,7 @@ GiftedChat.defaultProps = {
   minInputToolbarHeight: 44,
   keyboardShouldPersistTaps: Platform.select({
     ios: 'never',
-    android: 'always',
+    android: 'never',
   }),
   onInputTextChanged: null,
   maxInputLength: null,
